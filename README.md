@@ -1,5 +1,6 @@
 # Neural_Conversation_Models
-=================================\n
+=================================
+
 This implementation contains an extension of seq2seq tutorial for conversation models in Tensorflow:
 
 1. Option to use Beam Search and Beam Size for decoding
