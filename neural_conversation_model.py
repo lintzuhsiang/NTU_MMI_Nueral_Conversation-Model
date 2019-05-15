@@ -77,8 +77,8 @@ _buckets = [(10, 10), (15, 15), (25, 25), (50, 50)]
 def read_chat_data(data_path,vocabulary_path, max_size=None):
     counter = 0
     vocab, _ = initialize_vocabulary(vocabulary_path)
-    print len(vocab)
-    print max_size
+    print (len(vocab))
+    print (max_size)
     data_set = [[] for _ in _buckets]
     with codecs.open(data_path, "rb") as fi:
         for line in fi.readlines():
@@ -109,7 +109,7 @@ def create_model(session, forward_only, beam_search, beam_size = 10, attention =
       FLAGS.size, FLAGS.num_layers, FLAGS.max_gradient_norm, FLAGS.batch_size,
       FLAGS.learning_rate, FLAGS.learning_rate_decay_factor, FLAGS.MMIweight,
       forward_only=forward_only, beam_search=beam_search, beam_size=beam_size, attention=attention)
-  print FLAGS.train_dir
+  print (FLAGS.train_dir)
   ckpt = tf.train.get_checkpoint_state(FLAGS.train_dir)
 
   # ckpt.model_checkpoint_path ="./train/chat_bot.ckpt-1201.data-00000-of-00001"
@@ -129,7 +129,7 @@ def create_models(path, en_vocab_size, session, forward_only, beam_search, beam_
       FLAGS.size, FLAGS.num_layers, FLAGS.max_gradient_norm, FLAGS.batch_size,
       FLAGS.learning_rate, FLAGS.learning_rate_decay_factor,
       forward_only=forward_only, beam_search=beam_search, beam_size=beam_size, attention=attention)
-  print FLAGS.train_dir
+  print (FLAGS.train_dir)
   ckpt = tf.train.get_checkpoint_state(path)
 
   # ckpt.model_checkpoint_path ="./big_models/chat_bot.ckpt-183600"
@@ -238,7 +238,7 @@ def train():
       # Once in a while, we save checkpoint, print statistics, and run evals.
       if current_step % FLAGS.steps_per_checkpoint == 0:
         # Print statistics for the previous epoch.
-        print "Running epochs"
+        print ("Running epochs")
         perplexity_ST = math.exp(loss_ST) if loss_ST < 300 else float('inf')
         perplexity_TS = math.exp(loss_TS) if loss_TS < 300 else float('inf')
         print ("global step %d learning rate %.4f step-time %.2f perplexity_ST %.2f perplexity_TS "
@@ -250,7 +250,7 @@ def train():
         previous_losses.append(max(loss_ST,loss_TS))
         # # Save checkpoint and zero timer and loss.
         saver = tf.train.Saver(write_version=tf.train.SaverDef.V2)
-	saver.save(sess, FLAGS.train_dir+ 'model.ckpt', global_step = current_step)
+        saver.save(sess, FLAGS.train_dir+ 'model.ckpt', global_step = current_step)
 	#checkpoint_path = os.path.join(FLAGS.train_dir, "chat_bot.ckpt")
         #model.saver.save(sess, checkpoint_path, global_step=model.global_step)
         step_time, loss_ST,loss_TS = 0.0, 0.0, 0.0
@@ -311,7 +311,7 @@ def train():
       # Once in a while, we save checkpoint, print statistics, and run evals.
       if current_step % FLAGS.steps_per_checkpoint == 0:
         # Print statistics for the previous epoch.
-        print "Running epochs"
+        print ("Running epochs")
         perplexity_MMI = math.exp(loss_MMI) if loss_MMI < 300 else float('inf')
         print ("global step %d learning rate %.4f step-time %.2f perplexity_MMI"
                 "%.2f" % (model.global_step.eval(), model.learning_rate.eval(),
@@ -325,7 +325,7 @@ def train():
         #TODO
         print ("loss_MMI: %.2f" % loss_MMI)
         saver = tf.train.Saver(write_version = tf.train.SaverDef.V2)
-	saver.save(sess, FLAGS.train_dir + 'MMI_model.ckpt', global_step = current_step)
+        saver.save(sess, FLAGS.train_dir + 'MMI_model.ckpt', global_step = current_step)
         #checkpoint_path = os.path.join(FLAGS.train_dir, "chat_bot.ckpt")
         #model.saver.save(sess, checkpoint_path, global_step=model.global_step)
         step_time, loss_MMI = 0.0, 0.0
@@ -389,7 +389,7 @@ def decode():
                 paths[kk].append(symbol[i][curr[kk]])
                 curr[kk] = path[i][curr[kk]]
           recos = set()
-          print "Replies --------------------------------------->"
+          print ("Replies --------------------------------------->")
           for kk in range(beam_size):
               foutputs = [int(logit)  for logit in paths[kk][::-1]]
 
@@ -400,7 +400,7 @@ def decode():
               rec = " ".join([tf.compat.as_str(rev_vocab[output]) for output in foutputs])
               if rec not in recos:
                       recos.add(rec)
-                      print rec
+                      print (rec)
 
           print("> ", "")
           sys.stdout.flush()

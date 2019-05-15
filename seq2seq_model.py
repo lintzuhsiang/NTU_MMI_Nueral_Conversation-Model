@@ -98,7 +98,7 @@ class Seq2SeqModel(object):
     # TODO define source2target and target2source
     def seq2seq_ST(encoder_inputs, decoder_inputs, do_decode):
         if attention:
-            print "seq2seq_ST Attention Model"
+            print ("seq2seq_ST Attention Model")
             return embedding_attention_seq2seq(
                encoder_inputs, decoder_inputs, cellST,
                num_encoder_symbols=source_vocab_size,
@@ -109,7 +109,7 @@ class Seq2SeqModel(object):
                beam_search=beam_search,
                beam_size=beam_size )
         else:
-            print "seq2seq_ST Simple Model"
+            print ("seq2seq_ST Simple Model")
             return embedding_rnn_seq2seq(
               encoder_inputs, decoder_inputs, cellST,
               num_encoder_symbols=source_vocab_size,
@@ -122,7 +122,7 @@ class Seq2SeqModel(object):
     # TODO
     def seq2seq_TS(encoder_inputs,decoder_inputs,do_decode):
         if attention:
-            print "seq2seq_TS Attention Model"
+            print ("seq2seq_TS Attention Model")
             return embedding_attention_seq2seq(
                encoder_inputs, decoder_inputs, cellTS,
                num_encoder_symbols=source_vocab_size,
@@ -133,7 +133,7 @@ class Seq2SeqModel(object):
                beam_search=beam_search,
                beam_size=beam_size )
         else:
-            print "seq2seq_TS Simple Model"
+            print ("seq2seq_TS Simple Model")
             return embedding_rnn_seq2seq(
               encoder_inputs, decoder_inputs, cellTS,
               num_encoder_symbols=source_vocab_size,
